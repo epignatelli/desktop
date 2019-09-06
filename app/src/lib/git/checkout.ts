@@ -26,21 +26,9 @@ async function getCheckoutArgs(
       ? [...networkArguments, 'checkout', '--progress']
       : [...networkArguments, 'checkout']
 
-  if (enableRecurseSubmodulesFlag()) {
-    return branch.type === BranchType.Remote
-      ? baseArgs.concat(
-          branch.name,
-          '-b',
-          branch.nameWithoutRemote,
-          '--recurse-submodules',
-          '--'
-        )
-      : baseArgs.concat(branch.name, '--recurse-submodules', '--')
-  } else {
     return branch.type === BranchType.Remote
       ? baseArgs.concat(branch.name, '-b', branch.nameWithoutRemote, '--')
       : baseArgs.concat(branch.name, '--')
-  }
 }
 
 /**
@@ -101,8 +89,8 @@ export async function checkoutBranch(
 
   // Solves https://github.com/desktop/desktop/issues/8221
   if (enableRecurseSubmodulesFlag()) {
-    await initAndUpdateSubmodules(repository)
-  }
+      await initAndUpdateSubmodules(repository)
+    }
 
   // we return `true` here so `GitStore.performFailableGitOperation`
   // will return _something_ differentiable from `undefined` if this succeeds

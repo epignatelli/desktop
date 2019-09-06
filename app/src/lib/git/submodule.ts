@@ -90,10 +90,11 @@ export async function resetSubmodulePaths(
 }
 
 export async function initAndUpdateSubmodules(
-  repository: Repository
+  repository: Repository,
 ): Promise<void> {
     await git(
     ['submodule', 'update', '--init', '--recursive', '--'],
     repository.path,
     'initAndUpdateSubmodules',
+  )
 }
