@@ -97,6 +97,12 @@ export async function checkoutBranch(
   )
 
   await git(args, repository.path, 'checkoutBranch', opts)
+
+  // Solves https://github.com/desktop/desktop/issues/8221
+  if (enableRecurseSubmodulesFlag()) {
+    await git('submodule update --init --recursive')
+  }
+
   // we return `true` here so `GitStore.performFailableGitOperation`
   // will return _something_ differentiable from `undefined` if this succeeds
   return true
