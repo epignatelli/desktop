@@ -93,7 +93,7 @@ export async function updateSubmodules(
   repository: Repository
 ): Promise<void> {
     await git(
-    ['submodule', 'update', '--init', 'recursive', '--'],
+    ['submodule', 'update', '--init', '--recursive', '--'],
     repository.path,
     'updateSubmodule',
 }
