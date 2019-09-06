@@ -9,7 +9,7 @@ import {
 } from '../progress'
 import { envForAuthentication, AuthenticationErrors } from './authentication'
 import { enableRecurseSubmodulesFlag } from '../feature-flag'
-import { updateSubmodules } from './submodule'
+import { initAndUpdateSubmodules } from './submodule'
 
 export type ProgressCallback = (progress: ICheckoutProgress) => void
 
@@ -101,7 +101,7 @@ export async function checkoutBranch(
 
   // Solves https://github.com/desktop/desktop/issues/8221
   if (enableRecurseSubmodulesFlag()) {
-    await updateSubmodules(repository)
+    await initAndUpdateSubmodules(repository)
   }
 
   // we return `true` here so `GitStore.performFailableGitOperation`
